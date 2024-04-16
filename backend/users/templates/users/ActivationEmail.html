@@ -1,0 +1,18 @@
+{% load i18n %} {% block html_body %}
+<p>
+	{% blocktrans %}Вы получили данное письмо для активации вашего аккаунта на сайте {{
+	site_name }}.{% endblocktrans %}
+</p>
+
+<p>{% trans "Пожалуйста пройдите по ссылке, чтобы активировать аккаунт:" %}</p>
+<p>
+	<a href="{{ protocol }}://{{ domain }}/{{ url|safe }}"
+		>{{ protocol }}://{{ domain }}/{{ url|safe }}</a
+	>
+</p>
+
+<p>{% trans "Thanks for using our site!" %}</p>
+
+<p>{% blocktrans %}ITEM CLUB{% endblocktrans %}</p>
+
+{% endblock html_body %}
