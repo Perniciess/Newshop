@@ -1,6 +1,0 @@
-export type { User } from './types'
-export type { Product } from './types'
-export type { AddProductFormValues } from './types'
-export type { Products } from './types'
-export type { CreateUserResponse } from './types'
-export type { Token } from './types'
