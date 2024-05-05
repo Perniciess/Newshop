@@ -32,7 +32,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 				password,
 				re_password,
 			}) => ({
-				url: '/users/',
+				url: '/register/',
 				method: 'POST',
 				body: { login, name, email, password, re_password },
 			}),
@@ -87,7 +87,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 		}),
 		getBrand: builder.query<Brand[], {brand: number}>({
 			query: ({brand}) => ({
-				url: `products/${brand}/type/`,
+				url: `products/${brand}/brand/`,
 				method: 'GET',
 			})
 		}),
@@ -109,6 +109,13 @@ const authApiSlice = apiSlice.injectEndpoints({
 				url: `cart/${product_id}/delete/`,
 				method: 'POST',
 				body: { product_id },
+			})
+		}),
+		createOrder: builder.mutation({
+			query: ({ user_id, address}) => ({
+				url: `orders/`,
+				method: 'POST',
+				body: { user_id, address},
 			})
 		}),
 	}),

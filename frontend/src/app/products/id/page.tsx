@@ -8,51 +8,28 @@ import {
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'react-toastify'
-
+import Link from 'next/link'
 
 export default function Index() {
-	const router = useRouter()
 	const searchParams = useSearchParams()
 	const productId = searchParams.get('id')
-	const { data: product } = useGetProductQuery({ id: productId ? parseInt(productId, 10) : 0 })
-	const [deleteProduct] = useDeleteProductMutation()
-	const [addToCart] = useAddToCartMutation()
-	const { data: user } = useRetrieveUserQuery()
+	const { data: product } = useGetProductQuery({
+		id: productId ? parseInt(productId, 10) : 0,
+	})
 
-	const handleDeleteProduct = () => {
-		deleteProduct({ id: productId })
+	const [addToCart] = useAddToCartMutation()
+
+	const handleAddToCart = () => {
+		addToCart({ product_id: productId })
 			.unwrap()
 			.then(() => {
-				toast.success('Товар удален')
+				toast.success('Товар добавлен в корзину')
 			})
 			.catch(() => {
 				toast.error('Ошибка')
 			})
 	}
 
-	const handleAddToCart = () => {
-		
-			addToCart({ product_id: productId })
-				.unwrap()
-				.then(() => {
-					toast.success('Товар добавлен в корзину')
-				})
-				.catch(() => {
-					toast.error('Ошибка')
-				})
-	
-	}
-
-	const isModer = () => (
-		<>
-			<button
-				onClick={handleDeleteProduct}
-				className='ml-6 rounded-xl bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
-			>
-				Удалить
-			</button>
-		</>
-	)
 	return (
 		<>
 			<div className='py-6'>
@@ -75,9 +52,15 @@ export default function Index() {
 								</h2>
 								<p className='text-gray-500 text-sm'>
 									Бренд{' '}
-									<a href='#' className='text-blue-600 hover:underline'>
+									<Link
+										href={{
+											pathname: '/products/brand',
+											query: { brand: product.brand_id, name: product.brand }
+										}}
+										className='text-blue-600 hover:underline'
+									>
 										{product.brand}
-									</a>
+									</Link>
 								</p>
 
 								<div className='flex items-center space-x-4 my-4'>
@@ -89,14 +72,12 @@ export default function Index() {
 								<p className='text-gray-500'>{product.type}</p>
 
 								<div className='flex py-4 space-x-4'>
-								
 									<button
 										onClick={handleAddToCart}
 										className='h-14 px-6 py-2 font-semibold rounded-xl bg-blue-600 hover:bg-blue-400 text-white'
 									>
 										Добавить в корзину
 									</button>
-									{user?.is_staff && isModer()}
 								</div>
 							</div>
 						</div>

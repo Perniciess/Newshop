@@ -4,6 +4,8 @@ export interface Product {
 	price: number;
 	brand: string;
 	type: string;
+	type_id: number;
+	brand_id: number;
 	img: string; 
   }
   
@@ -31,6 +33,8 @@ export interface Products {
 	img: string;
 	type_name: string;
 	brand_name: string;
+	brand_id: number;
+	type_id: number;
   }
 
   export interface Type {

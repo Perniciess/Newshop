@@ -2,7 +2,7 @@
 import React from 'react'
 import { images } from './constants'
 import { motion } from 'framer-motion'
-
+import Link from 'next/link'
 type Props = {
 	activeImage: any
 	clickNext: any
@@ -45,11 +45,11 @@ const Description = ({ activeImage, clickNext, clickPrev }: Props) => {
 							{elem.desc}
 						</div>
 					</motion.div>
-
-					<button className='bg-blue-700 text-white absolute left-5 bottom-5 uppercase px-4 py-2 rounded-md'>
-						Заказать
-					</button>
-
+					<Link href={`/products/id?id=${elem.id}`}>
+						<button className='bg-blue-700 text-white absolute left-5 bottom-5 uppercase px-4 py-2 rounded-md'>
+							Заказать
+						</button>
+					</Link>
 					<div className='absolute  bottom-5 right-10 w-full flex justify-center items-center'>
 						<div
 							className='absolute bottom-2 right-10 cursor-pointer text-red-500'
